@@ -12,7 +12,7 @@ import org.json.JSONObject
 
 class ServiceVolley {
     val TAG = ServiceVolley::class.java.simpleName
-    val basePath = "http://gopockett.com/"
+    val basePath = "http://10.25.71.234:8000/"
 
     fun post(path: String, params: JSONObject, headers:HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit) {
         val jsonObjReq = object : JsonObjectRequest(Method.POST, basePath + path, params,
@@ -25,32 +25,6 @@ class ServiceVolley {
                 },
                 Response.ErrorListener { error ->
                     Log.d(TAG, "/post request fail! Error: ${error.message}")
-                    completionHandler(null)
-                }) {
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                headers.put("Content-Type", "application/json")
-                Log.i("headers",headers.toString())
-                return headers
-            }
-        }
-
-        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
-    }
-
-    fun post_array(path: String, params: JSONArray, headers:HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit) {
-        val jsonObjReq = object : JsonArrayRequest(Method.POST, basePath + path, params,
-                Response.Listener<JSONArray> { response ->
-                    Log.d(TAG, "/post request OK! Response: $response")
-                    val key = "code"
-                    val value = 200
-                    val respuesta = JSONObject()
-                    respuesta.put("values",response)
-                    respuesta.put(key,value)
-                    completionHandler(respuesta)
-                },
-                Response.ErrorListener { error ->
-                    Log.d("ERROR VOLLEY",error.message)
                     completionHandler(null)
                 }) {
             @Throws(AuthFailureError::class)
