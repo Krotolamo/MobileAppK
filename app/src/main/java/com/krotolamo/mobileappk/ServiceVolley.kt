@@ -9,7 +9,7 @@ import org.json.JSONObject
 
 class ServiceVolley {
     val TAG = ServiceVolley::class.java.simpleName
-    val basePath = "http://10.25.71.234:8000/"
+    val basePath = "http://192.168.137.162:8000/"
 
     fun post(path: String, params: JSONObject, headers:HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit) {
         val jsonObjReq = object : JsonObjectRequest(Method.POST, basePath + path, params,
