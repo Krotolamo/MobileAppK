@@ -3,15 +3,38 @@ package com.krotolamo.mobileappk
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
+    val service = ServiceVolley()
+    val path = "mixer/play_song/"
+
+    fun playSong(v: View){
+        var button = v.tag
+        val params = JSONObject()
+        val headers = HashMap<String, String>()
+
+        params.put("user", 1)
+        params.put("button", button)
+
+        service.post(path, params, headers) { response ->
+            if(response?.get("code") == 200){
+                Log.i("HOLA","HOLA")
+            }else{
+                Log.i("HOLAA","HOLAA")
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dj_board)
 
-        val intent = Intent(this, DjBoard::class.java)
-        startActivity(intent)
     }
 }
-

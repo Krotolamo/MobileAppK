@@ -9,6 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import org.json.JSONObject
+import com.android.volley.toolbox.Volley
+import com.android.volley.RequestQueue
+
+
 
 class DjBoard : AppCompatActivity() {
 
@@ -16,7 +20,6 @@ class DjBoard : AppCompatActivity() {
     val path = "mixer/play_song/"
 
     fun playSong(v: View){
-
         var button = v.tag
         val params = JSONObject()
         val headers = HashMap<String, String>()
@@ -25,7 +28,6 @@ class DjBoard : AppCompatActivity() {
         params.put("button", button)
 
         service.post(path, params, headers) { response ->
-
             if(response?.get("code") == 200){
                 Log.d("HOLA","HOLA")
             }else{
@@ -37,6 +39,5 @@ class DjBoard : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dj_board)
-
     }
 }
