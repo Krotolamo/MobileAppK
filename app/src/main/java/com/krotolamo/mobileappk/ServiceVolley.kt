@@ -1,18 +1,19 @@
 package com.krotolamo.mobileappk
 
 import android.util.Log
-import com.android.volley.AuthFailureError
-import com.android.volley.Response
-import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
 import org.json.JSONObject
+import android.R.attr.data
+import com.android.volley.*
+import com.android.volley.Request.Method.POST
+import com.krotolamo.mobileappk.BackendVolley.Companion.instance
 
 
 class ServiceVolley {
     val TAG = ServiceVolley::class.java.simpleName
-    val basePath = "http://10.25.71.234:8000/"
+    var basePath = "http://10.25.71.234:8000/"
 
     fun post(path: String, params: JSONObject, headers:HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit) {
         val jsonObjReq = object : JsonObjectRequest(Method.POST, basePath + path, params,
@@ -36,5 +37,13 @@ class ServiceVolley {
         }
 
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    }
+
+    fun setIP(s: String){
+        basePath = s
+    }
+
+    fun getIP(): String {
+        return basePath
     }
 }

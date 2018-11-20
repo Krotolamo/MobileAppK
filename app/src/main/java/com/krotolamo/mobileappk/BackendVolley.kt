@@ -41,15 +41,6 @@ class BackendVolley : Application() {
             requestQueue!!.cancelAll(tag)
         }
     }
-/*
-    fun getImageLoader(): ImageLoader? {
-
-        if (mImageLoader == null) {
-            this.mImageLoader = ImageLoader(this.requestQueue, LruBitmapCache())
-        }
-        return this.mImageLoader
-    }
-    */
 
     companion object {
         private val TAG = BackendVolley::class.java.simpleName
