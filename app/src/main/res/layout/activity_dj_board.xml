@@ -1,52 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tableLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DjBoard">
+    android:background="@color/colorPrimary">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="106dp"
-        android:onClick="playSong"
-        android:tag="1"
-        android:text="Button" />
+    <TableRow
+        android:id="@+id/ro1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="80dp"
-        android:text="Button"
-        android:onClick="playSong"
-        android:tag="2"/>
+        <Button
+            android:id="@+id/boton1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttondj"
+            android:onClick="playSong"
+            android:shadowDx="20"
+            android:shadowDy="20"
+            android:shadowRadius="6"
+            android:shadowColor="@color/colorAccent"
+            android:tag="1" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginBottom="164dp"
-        android:text="Button"
-        android:onClick="playSong"
-        android:tag="3"/>
+        <Button
+            android:id="@+id/boton2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttondj"
+            android:onClick="playSong"
+            android:tag="2" />
+    </TableRow>
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button2"
-        android:layout_alignTop="@+id/button3"
-        android:text="Button"
-        android:onClick="playSong"
-        android:tag="4"/>
-</RelativeLayout>
+    <TableRow
+        android:id="@+id/row2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/boton3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttondj2"
+            android:onClick="playSong"
+            android:tag="3" />
+
+        <Button
+            android:id="@+id/boton4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttondj2"
+            android:onClick="playSong"
+            android:tag="4" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/boton5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttondj3"
+            android:onClick="playSong"
+            android:tag="5" />
+
+        <Button
+            android:id="@+id/boton6"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttondj3"
+            android:onClick="playSong"
+            android:tag="6" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/rowControllers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/botonStop"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttondj"
+            android:fontFamily="@font/comfortaaregular"
+            android:onClick="stopSong"
+            android:tag="7"
+            android:text="STOP"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttondj"
+            android:fontFamily="@font/comfortaaregular"
+            android:onClick="logout"
+            android:tag="9"
+            android:text="LOG OUT"
+            android:textColor="@android:color/white" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/rowSong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="182dp"
+            android:layout_height="84dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/comfortaalight"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:padding="16dp"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </TableRow>
+
+</TableLayout>
