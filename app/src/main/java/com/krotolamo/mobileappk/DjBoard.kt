@@ -33,10 +33,12 @@ import android.content.pm.PackageManager
 import android.os.Environment
 import android.support.v4.content.ContextCompat
 import android.text.InputType
+import android.widget.EditText
 import com.facebook.login.LoginManager
 
 
 class DjBoard : AppCompatActivity() {
+
 
     val service = ServiceVolley()
     var update : String = "0"
@@ -243,6 +245,32 @@ class DjBoard : AppCompatActivity() {
             val myIntent = Intent(this@DjBoard, MainActivity::class.java)
             this@DjBoard.startActivity(myIntent)
         }
+
+/*
+
+
+        //manuel_sjxipou_flores@tfbnw.net
+        //maneman
+
+
+        val txtUrl = EditText(this)
+
+// Set the default text to a link of the Queen
+        txtUrl.hint = "http://10.25.71.234:8000/"
+
+        android.support.v7.app.AlertDialog.Builder(this)
+                .setTitle("K Mixer ")
+                .setMessage("Paste the Raspberry IP")
+                .setView(txtUrl)
+                .setPositiveButton("Set IP") { dialog, whichButton ->
+                    val url = txtUrl.text.toString()
+                    this@DjBoard.service.setIP(url)
+                }
+                .setNegativeButton("Cancel") { dialog, whichButton -> }
+                .show()
+*/
+
+
         textSong = this.findViewById(R.id.textView) as TextView
         textSong.isSelected = true
 
