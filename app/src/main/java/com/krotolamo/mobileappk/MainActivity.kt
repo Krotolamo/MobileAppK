@@ -15,6 +15,11 @@ import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
+import android.widget.EditText
+
+
 
 
 
@@ -37,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             val myIntent = Intent(this@MainActivity, DjBoard::class.java)
             this@MainActivity.startActivity(myIntent)
         }
+
+
+
         callbackManager = CallbackManager.Factory.create()
         loginButton = findViewById(R.id.login_button)
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
