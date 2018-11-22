@@ -1,38 +1,21 @@
 package com.krotolamo.mobileappk
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import org.json.JSONObject
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_dj_board.*
-import org.json.JSONException
-import android.R.string.cancel
-import android.app.PendingIntent.getActivity
 import com.android.volley.*
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import android.provider.OpenableColumns
-import android.R.attr.path
 import java.io.*
-import android.Manifest.permission
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
-import android.os.Environment
 import android.support.v4.content.ContextCompat
-import android.text.InputType
+import android.widget.SeekBar
 import com.facebook.login.LoginManager
 
 
@@ -40,6 +23,7 @@ class DjBoard : AppCompatActivity() {
 
     val service = ServiceVolley()
     var update : String = "0"
+    lateinit var seekBar : SeekBar
     lateinit var textSong : TextView
     private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
     lateinit var session: SessionManager
@@ -65,9 +49,10 @@ class DjBoard : AppCompatActivity() {
                 var path_cancion = response.getString("song").replace("\\","")
                 var cancion = path_cancion.split("/")
                 var n_cancion = cancion[cancion.size - 1]
-                textView.setText("Playing song: " + n_cancion)
+                textSong.setText("Playing song: " + n_cancion)
             }else{
-                Toast.makeText(this, "Error playing song", Toast.LENGTH_LONG).show()
+                textSong.setText("Button without song")
+                Toast.makeText(this, "Button without song", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -86,9 +71,9 @@ class DjBoard : AppCompatActivity() {
         service.post(path, params, headers) { response ->
 
             if(response?.get("code") == 200){
-
-                textView.setText("Paused")
+                textSong.setText("Paused")
             }else{
+                textSong.setText("Error pausing song")
                 Toast.makeText(this, "Error pausing song", Toast.LENGTH_LONG).show()
             }
         }
@@ -245,6 +230,35 @@ class DjBoard : AppCompatActivity() {
         }
         textSong = this.findViewById(R.id.textView) as TextView
         textSong.isSelected = true
+
+        seekBar = findViewById(R.id.seekBar)
+        seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                var progress = seekBar.progress.toString()
+                val path = "mixer/change_volume/"
+                val params = JSONObject()
+                val headers = HashMap<String, String>()
+
+                params.put("user", session.userDetails)
+                params.put("volume",progress)
+
+                service.post(path, params, headers) { response ->
+
+                    if(response?.get("code") == 200){
+
+                    }else{
+                        Toast.makeText(this@DjBoard, "Error Volume", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
+
 
     }
 }

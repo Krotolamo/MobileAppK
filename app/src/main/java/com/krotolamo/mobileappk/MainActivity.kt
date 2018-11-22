@@ -1,4 +1,5 @@
 package com.krotolamo.mobileappk
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,8 +16,16 @@ import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
-
-
+import android.view.View.VISIBLE
+import android.widget.TextView
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.RelativeLayout
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.view.animation.Animation.AnimationListener
+import android.widget.LinearLayout
+import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,8 +46,28 @@ class MainActivity : AppCompatActivity() {
             val myIntent = Intent(this@MainActivity, DjBoard::class.java)
             this@MainActivity.startActivity(myIntent)
         }
-        callbackManager = CallbackManager.Factory.create()
         loginButton = findViewById(R.id.login_button)
+        var slide: Animation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, -4f)
+        slide.duration = 1000
+        slide.isFillEnabled = true
+        slide.fillAfter = true
+        slide.setAnimationListener(object : AnimationListener {
+
+            override fun onAnimationStart(animation: Animation) {}
+
+            override fun onAnimationRepeat(animation: Animation) {}
+
+            override fun onAnimationEnd(animation: Animation) {
+                loginButton.clearAnimation()
+                val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                lp.topMargin += 1175
+                loginButton.setLayoutParams(lp)
+            }
+
+        })
+        loginButton.startAnimation(slide)
+        callbackManager = CallbackManager.Factory.create()
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 val request = GraphRequest.newMeRequest(
@@ -50,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                     first_name = name[0]
                     last_name = name[1]
                     token = AccessToken.getCurrentAccessToken().token.toString()
-                    if(token != null){
+                    if(token != ""){
                         val path = "mixer/login_facebook/"
                         val params = JSONObject()
                         val headers = HashMap<String, String>()
